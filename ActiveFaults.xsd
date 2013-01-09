@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:aasg="http://stategeothermaldata.org/uri-gin/aasg/xmlschema/activefault/1.2" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:gml="http://www.opengis.net/gml" targetNamespace="http://stategeothermaldata.org/uri-gin/aasg/xmlschema/activefault/1.2" elementFormDefault="qualified">
+	<xs:import namespace="http://www.opengis.net/gml" schemaLocation="http://schemas.opengis.net/gml/3.1.1/base/gml.xsd"/>
+	<xs:annotation>
+		<!-- This XSD document, including XML schema, indicates the content requested for quaternary (active) fault data obtained from state geological surveys for the AASG geothermal data project.  Typically movements are recorded from field observations and measurements; this information will be provided through an active fault service. The SpecificationURI for a particular fault (is the link (foreign key) used to associate the feature with additional information and metadata.  Each measurement should have a unique FeatureURI. -->
+		<!--This XSD document was created on 2012-02-24 by Celia Coleman, AZGS.  This schema is based on the data available in the AASG Web Feature Services created for the active faults in Arizona and California. -->
+	</xs:annotation>
+	<xs:element name="ActiveFault" type="aasg:ActiveFaultType" substitutionGroup="gml:_Feature"/>
+	<xs:complexType name="ActiveFaultType">
+		<xs:complexContent>
+			<xs:extension base="gml:AbstractFeatureType">
+				<xs:sequence>
+					<xs:element name="OBJECTID" type="xs:int" minOccurs="0"/>
+					<xs:element name="FeatureURI">
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:maxLength value="255"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="Name" type="xs:string"/>
+					<xs:element name="FullName" type="xs:string" minOccurs="0"/>
+					<xs:element name="ParentFeatureURI" minOccurs="0">
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:maxLength value="255"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="Label" type="xs:string"/>
+					<xs:element name="Description" type="xs:string" minOccurs="0"/>
+					<xs:element name="Symbol" type="xs:string"/>
+					<xs:element name="OtherID" type="xs:string" minOccurs="0"/>
+					<xs:element name="SpecificationURI" minOccurs="0">
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:maxLength value="255"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="FeatureType" type="xs:string"/>
+					<xs:element name="GeologicHistory" type="xs:string" minOccurs="0"/>
+					<xs:element name="RepresentativeAgeURI" minOccurs="0">
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:maxLength value="255"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="YoungerAgeURI" minOccurs="0">
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:maxLength value="255"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="OlderAgeURI" minOccurs="0">
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:maxLength value="255"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="IntervalSinceMovement" type="xs:string" minOccurs="0"/>
+					<xs:element name="ObservationMethod" type="xs:string" minOccurs="0"/>
+					<xs:element name="PositionAccuracyMeters" type="xs:double" minOccurs="0"/>
+					<xs:element name="PositionAccuracy" type="xs:string" minOccurs="0"/>
+					<xs:element name="Displacement" type="xs:string" minOccurs="0"/>
+					<xs:element name="SlipRate" type="xs:string" minOccurs="0"/>
+					<xs:element name="SlipAccumulationInterval" type="xs:string" minOccurs="0"/>
+					<xs:element name="MovementType" type="xs:string" minOccurs="0"/>
+					<xs:element name="MovementSense" type="xs:string" minOccurs="0"/>
+					<xs:element name="DipDirection" type="xs:string" minOccurs="0"/>
+					<xs:element name="DateMostRecentEvent" type="xs:string" minOccurs="0"/>
+					<xs:element name="RecurrenceInterval" type="xs:string" minOccurs="0"/>
+					<xs:element name="TotalSlip" type="xs:string" minOccurs="0"/>
+					<xs:element name="Source" type="xs:string"/>
+					<xs:element name="MetadataURI" minOccurs="0">
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:maxLength value="255"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="Shape" type="gml:MultiCurvePropertyType"/>
+					<xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>
