@@ -3,44 +3,92 @@
 	<xs:import namespace="http://www.opengis.net/gml" schemaLocation="http://schemas.opengis.net/gml/3.1.1/base/gml.xsd"/>
 	<xs:annotation>
 		<!-- This XSD document, including XML schema, indicates the content requested for quaternary (active) fault data obtained from state geological surveys for the AASG geothermal data project.  Typically movements are recorded from field observations and measurements; this information will be provided through an active fault service. The SpecificationURI for a particular fault (is the link (foreign key) used to associate the feature with additional information and metadata.  Each measurement should have a unique FeatureURI. -->
-		<!--This XSD document was created on 2012-02-24 by Celia Coleman, AZGS.  This schema is based on the data available in the AASG Web Feature Services created for the active faults in Arizona and California. -->
+		<!--This XSD document was created on 2012-02-24 by Celia Coleman, AZGS. Edited on 2013-04-04 to contain descriptive annotation by Christy Caudill. This schema is based on the data available in the AASG Web Feature Services created for the active faults in Arizona and California. -->
 	</xs:annotation>
 	<xs:element name="ActiveFault" type="aasg:ActiveFaultType" substitutionGroup="gml:_Feature"/>
 	<xs:complexType name="ActiveFaultType">
 		<xs:complexContent>
 			<xs:extension base="gml:AbstractFeatureType">
 				<xs:sequence>
-					<xs:element name="OBJECTID" type="xs:int" minOccurs="0"/>
+					<xs:element name="OBJECTID" type="xs:int" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Integer record count, added by ArcGIS servers during service deployment; not required but cannot be removed when deploying from ArcGIS feature class…  Not user maintained, so this element appears in XML implementation but not in the WellHeaderTemplate.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
 					<xs:element name="FeatureURI">
+						<xs:annotation>
+							<xs:documentation>Unique identifier for this feature. Best practice is to define an http URI that will dereference to a normative description of the feature.</xs:documentation>
+						</xs:annotation>
 						<xs:simpleType>
 							<xs:restriction base="xs:string">
 								<xs:maxLength value="255"/>
 							</xs:restriction>
 						</xs:simpleType>
 					</xs:element>
-					<xs:element name="Name" type="xs:string"/>
-					<xs:element name="FullName" type="xs:string" minOccurs="0"/>
+					<xs:element name="Name" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>Human-intelligible label for feature.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="FullName" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Hierarchical path name for the described shear displacement structure feature, from largest to most specific. E.g.  Pinto Mountain fault zone/Morongo Valley fault. Use slash '/' as the hierarchical delimiter.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
 					<xs:element name="ParentFeatureURI" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>If the described feature is part of a larger shear displacement structure, this is the FeatureURI for the parent structure.</xs:documentation>
+						</xs:annotation>
 						<xs:simpleType>
 							<xs:restriction base="xs:string">
 								<xs:maxLength value="255"/>
 							</xs:restriction>
 						</xs:simpleType>
 					</xs:element>
-					<xs:element name="Label" type="xs:string"/>
-					<xs:element name="Description" type="xs:string" minOccurs="0"/>
-					<xs:element name="Symbol" type="xs:string"/>
-					<xs:element name="OtherID" type="xs:string" minOccurs="0"/>
+					<xs:element name="Label" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>Short text string to identify feature in map portrayals.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Description" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Free text description of feature, any special considerations with this instance.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Symbol" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>Identifier for symbol for default portrayal of this feature in some symbol scheme. This is a convienence value, and assumes the existence of SLD or other legend-type artifact that maps from these symbol identifiers to graphical elements. Equivalent to genericSymbolizer element in GeoSciML thematic view schema.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="OtherID" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Pipe-delimited ('|') list of any other identifiers associated with this feature. Recommendation is to use a prefix notation (e.g. usgs:, kgs:, iris:) with a colon delimiter to indicate the scope of the identifier. These prefixes must be explained in the 'Notes on conventions used in this dataset' row in the 'Dataset metadata' tab.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
 					<xs:element name="SpecificationURI" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Ideally an http URI that dereferences to a full complex feature representation. If the FeatureURI is an http URI that can be dereferenced to one or more representations, this URI is redundant.For example the URI could refer to a GeoSciML ShearDisplacementStructure feature that describes the instance in detail.</xs:documentation>
+						</xs:annotation>
 						<xs:simpleType>
 							<xs:restriction base="xs:string">
 								<xs:maxLength value="255"/>
 							</xs:restriction>
 						</xs:simpleType>
 					</xs:element>
-					<xs:element name="FeatureType" type="xs:string"/>
-					<xs:element name="GeologicHistory" type="xs:string" minOccurs="0"/>
+					<xs:element name="FeatureType" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>Mandatory, one value. Term from controlled vocabulary classifying kind of feature. Default is 'Fault', other options are more specific fault types.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="GeologicHistory" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Free text specifying age of feature.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
 					<xs:element name="RepresentativeAgeURI" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>URI for a named time era that best characterizes the age of the fault.</xs:documentation>
+						</xs:annotation>
 						<xs:simpleType>
 							<xs:restriction base="xs:string">
 								<xs:maxLength value="255"/>
@@ -48,6 +96,9 @@
 						</xs:simpleType>
 					</xs:element>
 					<xs:element name="YoungerAgeURI" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>URI for younger age bound for genesis of structure.</xs:documentation>
+						</xs:annotation>
 						<xs:simpleType>
 							<xs:restriction base="xs:string">
 								<xs:maxLength value="255"/>
@@ -55,34 +106,100 @@
 						</xs:simpleType>
 					</xs:element>
 					<xs:element name="OlderAgeURI" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>URI for older age bound for genesis of structure.</xs:documentation>
+						</xs:annotation>
 						<xs:simpleType>
 							<xs:restriction base="xs:string">
 								<xs:maxLength value="255"/>
 							</xs:restriction>
 						</xs:simpleType>
 					</xs:element>
-					<xs:element name="IntervalSinceMovement" type="xs:string" minOccurs="0"/>
-					<xs:element name="ObservationMethod" type="xs:string" minOccurs="0"/>
-					<xs:element name="PositionAccuracyMeters" type="xs:double" minOccurs="0"/>
-					<xs:element name="PositionAccuracy" type="xs:string" minOccurs="0"/>
-					<xs:element name="Displacement" type="xs:string" minOccurs="0"/>
-					<xs:element name="SlipRate" type="xs:string" minOccurs="0"/>
-					<xs:element name="SlipAccumulationInterval" type="xs:string" minOccurs="0"/>
-					<xs:element name="MovementType" type="xs:string" minOccurs="0"/>
-					<xs:element name="MovementSense" type="xs:string" minOccurs="0"/>
-					<xs:element name="DipDirection" type="xs:string" minOccurs="0"/>
-					<xs:element name="DateMostRecentEvent" type="xs:string" minOccurs="0"/>
-					<xs:element name="RecurrenceInterval" type="xs:string" minOccurs="0"/>
-					<xs:element name="TotalSlip" type="xs:string" minOccurs="0"/>
-					<xs:element name="Source" type="xs:string"/>
+					<xs:element name="IntervalSinceMovement" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Time in kA (thousands of years) with uncertainty, since last event.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ObservationMethod" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>A free text description of the positional mapped trace of the feautre identified by the FeatureURI.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="PositionAccuracyMeters" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>A numerical estimate of the radius of the uncertainty envelope surrounding the mapped trace of the feature identified by the FeatureURI (reported in Meters).</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="PositionAccuracy" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>A qualitative estimate of the radius of the uncertainty envelope surrounding the mapped trace of the feature identified by the FeatureURI.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Displacement" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Text description of displacement across the feature identified by the FeatureURI.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="SlipRate" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Distinguish horizontal  or vertical only slip rate, separation, from actual vector magnitude. Time interval for rate calculation is important component. Value is quantity with uncertainty.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="SlipAccumulationInterval" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Time period of averaging for slip rate calculation. Required if slip rate reported.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="MovementType" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Use extension of CGI Fault movement type vocabulary. Terms used to define the type of movement (eg dip-slip, strike-slip) for a DisplacementValue on a ShearDisplacementStructure.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="MovementSense" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Terms to specify the relative direction of movement of bodies of rock across a  ShearDisplacementStructure. Examples include 'sinistral', 'dextral', 'normal', 'reverse'.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DipDirection" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Term indicating general direction of dip of the fault structure described in this record.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DateMostRecentEvent" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>If earthquakes are associated with fault, calendar date of most recent event. Use ISO 8601 date time for consistency with other dates, recognizing that in general this will not include a time. Recommend using 12:00:00 as the default time.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="RecurrenceInterval" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Estimated average time in thousands of years between slip events on fault.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="TotalSlip" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Vector (trend, plunge, magnitude) linking piercing points on opposite sides of fault, with uncertainty.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Source" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>Short text explanation of source of information defining feature; may be author-date type citation, but should include some indication of how digital data originated. May include multiple citations if data in this record are from different sources.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
 					<xs:element name="MetadataURI" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>HTTP URI that identifies a metadata record describing the provenance of data. If all data is from from one source, this URI will be the same as the SourceMetadataURI on the 'Dataset metadata' tab in this spreadsheet.</xs:documentation>
+						</xs:annotation>
 						<xs:simpleType>
 							<xs:restriction base="xs:string">
 								<xs:maxLength value="255"/>
 							</xs:restriction>
 						</xs:simpleType>
 					</xs:element>
-					<xs:element name="Shape" type="gml:MultiCurvePropertyType"/>
+					<xs:element name="Shape" type="gml:MultiCurvePropertyType">
+						<xs:annotation>
+							<xs:documentation>Added by GIS for WFS service; this element appears in the xml output, but is generated during service deployment from the latitude and longitude, therefore it doesn't appear in the template.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
 					<xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
 				</xs:sequence>
 			</xs:extension>
