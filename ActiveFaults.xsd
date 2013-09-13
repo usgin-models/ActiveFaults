@@ -2,8 +2,8 @@
 <xs:schema xmlns:aasg="http://stategeothermaldata.org/uri-gin/aasg/xmlschema/activefault/1.2" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:gml="http://www.opengis.net/gml" targetNamespace="http://stategeothermaldata.org/uri-gin/aasg/xmlschema/activefault/1.2" elementFormDefault="qualified">
 	<xs:import namespace="http://www.opengis.net/gml" schemaLocation="http://schemas.opengis.net/gml/3.1.1/base/gml.xsd"/>
 	<xs:annotation>
-		<!-- This XSD document, including XML schema, indicates the content requested for quaternary (active) fault data obtained from state geological surveys for the AASG geothermal data project.  Typically movements are recorded from field observations and measurements; this information will be provided through an active fault service. The SpecificationURI for a particular fault (is the link (foreign key) used to associate the feature with additional information and metadata.  Each measurement should have a unique FeatureURI. -->
-		<!--This XSD document was created on 2012-02-24 by Celia Coleman, AZGS. Edited on 2013-04-04 to contain descriptive annotation by Christy Caudill. This schema is based on the data available in the AASG Web Feature Services created for the active faults in Arizona and California. -->
+		<!-- This XSD document, including XML schema, indicates the content requested for quaternary (active) fault data obtained from state geological surveys for the AASG geothermal data project. Typically movements are recorded from field observations and measurements; this information will be provided through an active fault service. The SpecificationURI for a particular fault is the link (foreign key) used to associate the feature with additional information and metadata.  Each measurement should have a unique FeatureURI. -->
+		<!--Annotated version 1.2.1. This XSD document was created on 2012-02-24 by Celia Coleman, AZGS. Edited on 2013-04-04 to contain descriptive annotation by Christy Caudill. This schema is based on the data available in the AASG Web Feature Services created for the active faults in Arizona and California. Field Description annotations standardized 2013-08-22 by Esty Pape, AZGS. -->
 	</xs:annotation>
 	<xs:element name="ActiveFault" type="aasg:ActiveFaultType" substitutionGroup="gml:_Feature"/>
 	<xs:complexType name="ActiveFaultType">
@@ -17,7 +17,7 @@
 					</xs:element>
 					<xs:element name="FeatureURI">
 						<xs:annotation>
-							<xs:documentation>Unique identifier for this feature. Best practice is to define an http URI that will dereference to a normative description of the feature.</xs:documentation>
+							<xs:documentation>Unique identifier that specifies the feature represented: e.g. a geologic feature, aquifer or facility structure. Ideally, the identifier is an http URI that will dereference to a known, useful representation of the feature. This identifier will be used to cross reference the feature to other information related to this feature.</xs:documentation>
 						</xs:annotation>
 						<xs:simpleType>
 							<xs:restriction base="xs:string">
@@ -27,17 +27,17 @@
 					</xs:element>
 					<xs:element name="Name" type="xs:string">
 						<xs:annotation>
-							<xs:documentation>Human-intelligible label for feature.</xs:documentation>
+							<xs:documentation>Common or human-readable name by which the feature is known. Recommend using only web-safe characters (a-z A-Z 0-9 _-.) in the name. Be consistent in the naming convention used within any given dataset.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="FullName" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Hierarchical path name for the described shear displacement structure feature, from largest to most specific. E.g.  Pinto Mountain fault zone/Morongo Valley fault. Use slash '/' as the hierarchical delimiter.</xs:documentation>
+							<xs:documentation>Hierarchical path name for the described shear displacement structure feature, from largest to most specific. E.g. Pinto Mountain fault zone/Morongo Valley fault. Use slash '/' as the hierarchical delimiter.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="ParentFeatureURI" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>If the described feature is part of a larger shear displacement structure, this is the FeatureURI for the parent structure.</xs:documentation>
+							<xs:documentation>Identifier for a larger shear displacement structure which the named feature is a part of.</xs:documentation>
 						</xs:annotation>
 						<xs:simpleType>
 							<xs:restriction base="xs:string">
@@ -47,12 +47,12 @@
 					</xs:element>
 					<xs:element name="Label" type="xs:string">
 						<xs:annotation>
-							<xs:documentation>Short text string to identify feature in map portrayals.</xs:documentation>
+							<xs:documentation>Short text string for labeling the feature on maps. Can be the same as feature name. A label may be an OtherLocationName, OtherID or the Name or some combination.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="Description" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Free text description of feature, any special considerations with this instance.</xs:documentation>
+							<xs:documentation>Free text field for any additional observations or other information regarding the feature, any special considerations with this instance (quality, lithology, locality, etc).</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="Symbol" type="xs:string">
@@ -62,12 +62,12 @@
 					</xs:element>
 					<xs:element name="OtherID" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Pipe-delimited ('|') list of any other identifiers associated with this feature. Recommendation is to use a prefix notation (e.g. usgs:, kgs:, iris:) with a colon delimiter to indicate the scope of the identifier. These prefixes must be explained in the 'Notes on conventions used in this dataset' row in the 'Dataset metadata' tab.</xs:documentation>
+							<xs:documentation>Alternative identifier(s) for the feature. Indicate the authority from which the OtherID is derived with a short (lower case) prefix delimited by a colon ':' If identifiers from multiple different authorities are available, delimit these identifiers with the pipe '|' character. For example, if a well were known to the Arizona Geological Survey (AZGS) by the id number 1337, the prefix would be azgs: and the identifier string would be azgs:1337. Any such prefixes used to scope identifiers should be explained in the dataset metadata.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="SpecificationURI" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Ideally an http URI that dereferences to a full complex feature representation. If the FeatureURI is an http URI that can be dereferenced to one or more representations, this URI is redundant.For example the URI could refer to a GeoSciML ShearDisplacementStructure feature that describes the instance in detail.</xs:documentation>
+							<xs:documentation>Ideally an http URI that dereferences to a full complex feature representation. If the FeatureURI is an http URI that can be dereferenced to one or more representations, this URI is redundant. For example, the URI could refer to a GeoSciML Contact feature that describes the instance in detail. If no value is provided then a URI for a nil reason concept  should be provided from list on the OGC_nilValues tab.</xs:documentation>
 						</xs:annotation>
 						<xs:simpleType>
 							<xs:restriction base="xs:string">
@@ -82,12 +82,12 @@
 					</xs:element>
 					<xs:element name="GeologicHistory" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Free text specifying age of feature.</xs:documentation>
+							<xs:documentation>Free text description of age or history of the feature.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="RepresentativeAgeURI" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>URI for a named time era that best characterizes the age of the fault.</xs:documentation>
+							<xs:documentation>A unique identifier for a named time era that best characterizes the age of the fault.</xs:documentation>
 						</xs:annotation>
 						<xs:simpleType>
 							<xs:restriction base="xs:string">
@@ -97,7 +97,7 @@
 					</xs:element>
 					<xs:element name="YoungerAgeURI" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>URI for younger age bound for genesis of structure.</xs:documentation>
+							<xs:documentation>Unique identifier for younger age term for interval.</xs:documentation>
 						</xs:annotation>
 						<xs:simpleType>
 							<xs:restriction base="xs:string">
@@ -107,7 +107,7 @@
 					</xs:element>
 					<xs:element name="OlderAgeURI" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>URI for older age bound for genesis of structure.</xs:documentation>
+							<xs:documentation>Unique identifier for older age term for interval.</xs:documentation>
 						</xs:annotation>
 						<xs:simpleType>
 							<xs:restriction base="xs:string">
@@ -122,7 +122,7 @@
 					</xs:element>
 					<xs:element name="ObservationMethod" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>A free text description of the positional mapped trace of the feautre identified by the FeatureURI.</xs:documentation>
+							<xs:documentation>Text description of how the measurement was made - instrumentation, logging rate, correction or extrapolation process, how time since circulation was determined, etc. Data provider should indicate QA/QC performed on the data, including individual or institution, time frame and depth of quality check.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="PositionAccuracyMeters" type="xs:double" minOccurs="0">
@@ -142,7 +142,7 @@
 					</xs:element>
 					<xs:element name="SlipRate" type="xs:string" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Distinguish horizontal  or vertical only slip rate, separation, from actual vector magnitude. Time interval for rate calculation is important component. Value is quantity with uncertainty.</xs:documentation>
+							<xs:documentation>Distinguish horizontal or vertical only slip rate, separation, from actual vector magnitude. Time interval for rate calculation is important component. Value is quantity with uncertainty.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="SlipAccumulationInterval" type="xs:string" minOccurs="0">
@@ -182,12 +182,12 @@
 					</xs:element>
 					<xs:element name="Source" type="xs:string">
 						<xs:annotation>
-							<xs:documentation>Short text explanation of source of information defining feature; may be author-date type citation, but should include some indication of how digital data originated. May include multiple citations if data in this record are from different sources.</xs:documentation>
+							<xs:documentation>Mandatory. Short text explanation of source of information defining this feature or record; may be author-date type citation, well log, report, data files etc., but should include some indication of how digital data originated. If unpublished data, provide researcher name, date and research institution for proper citation. Separate multiple citations with pipe '|' character.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="MetadataURI" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>HTTP URI that identifies a metadata record describing the provenance of data. If all data is from from one source, this URI will be the same as the SourceMetadataURI on the 'Dataset metadata' tab in this spreadsheet.</xs:documentation>
+							<xs:documentation>URI identifying (and ideally dereferencing to get) a full formal metadata record for the observation report. A time series of observations may all reference the same metadata record that provides contact information and details on procedure, etc.</xs:documentation>
 						</xs:annotation>
 						<xs:simpleType>
 							<xs:restriction base="xs:string">
